@@ -9,6 +9,13 @@ terraform {
 
 provider "github" {}
 
+module "terraformer" {
+  source      = "./repo"
+  repo_name   = "terraformer"
+  description = "Terraform for creating and managing GitHub repos"
+  provision_repo = false 
+}
+
 module "tankiMapper" {
   source       = "./repo"
   repo_name    = "TankiMapper"

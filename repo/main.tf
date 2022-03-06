@@ -24,25 +24,29 @@ resource "github_repository" "standard_repo" {
     on_failure = continue
     interpreter = ["/bin/bash", "-c"]
     command     = <<-EOT
-        git config --global user.name="Tarraformer"
-        git config --global user.email="terraformer@coffeetocode.dev"
-        
-        mkdir tmp
-        cd tmp
-        git clone ${github_repository.standard_repo.http_clone_url}
+        if ["${var.provision_repo}" -eq "true"]
+        then
+            echo "Running provisioner"
+            git config --global user.name="Tarraformer"
+            git config --global user.email="terraformer@coffeetocode.dev"
+            
+            mkdir tmp
+            cd tmp
+            git clone ${github_repository.standard_repo.http_clone_url}
 
-        cd ${var.repo_name}
-        dotnet new webapi -n "Terraform.Templated.Dotnet" -o .
-        
-        git add .
-        git commit -m "Created code using standard template"
+            cd ${var.repo_name}
+            dotnet new webapi -n "Terraform.Templated.Dotnet" -o .
+            
+            git add .
+            git commit -m "Created code using standard template"
 
-        git push
+            git push
 
-        cd ..
-        rm -r ${var.repo_name}
-        echo "WebApi template applied to repository `${var.repo_name}`."
-        pwd
+            cd ..
+            rm -r ${var.repo_name}
+            echo "WebApi template applied to repository `${var.repo_name}`."
+            pwd
+        fi
       EOT
   }
 }

@@ -9,3 +9,8 @@ output "wayless_output" {
 output "terraform_test_output" {
   value = module.terraform_template_test
 }
+
+
+output "terraformer" {
+  value = module.terraformer
+}

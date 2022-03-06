@@ -27,3 +27,8 @@ variable "has_issues" {
     type = bool
     default = true
 }
+
+variable "provision_repo" {
+    type = bool
+    default = true
+}
