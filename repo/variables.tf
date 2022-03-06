@@ -11,6 +11,11 @@ variable "description" {
 variable "visibility" {
     type = string
     default = "public"
+
+    validation {
+      condition = contains(["private", "public"], var.visibility)
+      error_message = "Visibility must be either `private` or `public`."
+    }
 }
 
 variable "has_projects" {

@@ -7,14 +7,23 @@ terraform {
   }
 }
 
-provider "github" { }
+provider "github" {}
 
 module "tankiMapper" {
-    source = "./repo"
-    repo_name = "TankiMapper"
-    description = "An ultra lean object-to-object mapper intended for simple mappings"
+  source       = "./repo"
+  repo_name    = "TankiMapper"
+  description  = "A light object-to-object mapper intended for simple mappings"
+  has_projects = true
 }
 
 module "wayless" {
+  source      = "./repo"
+  repo_name   = "Wayless"
+  description = "A lightweight object mapper"
+}
 
+module "terraform_template_test" {
+  source      = "./repo"
+  repo_name   = "terraform-template-test"
+  description = "Terraform test repo created using dotnet template"
 }
