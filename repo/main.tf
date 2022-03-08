@@ -7,7 +7,7 @@ resource "github_repository" "standard_repo" {
   has_wiki               = true
   has_downloads          = true
   vulnerability_alerts   = true
-  gitignore_template = "VisualStudio"
+  gitignore_template     = "VisualStudio"
   delete_branch_on_merge = true
   license_template       = "gpl-3.0"
 
@@ -20,8 +20,8 @@ resource "github_repository" "standard_repo" {
     prevent_destroy = true
   }
 
-   provisioner "local-exec" {
-    on_failure = continue
+  provisioner "local-exec" {
+    on_failure  = continue
     interpreter = ["/bin/bash", "-c"]
     command     = <<-EOT
         if ["${var.provision_repo}" -eq "true"]
@@ -56,7 +56,7 @@ resource "github_branch_default" "main_as_default" {
     github_repository.standard_repo
   ]
   repository = var.repo_name
-  branch = "main"
+  branch     = "main"
 }
 
 resource "github_branch_protection" "main_protection" {
@@ -87,9 +87,9 @@ resource "github_repository_file" "readme" {
   branch         = "main"
   file           = "README.md"
   content        = "# ${var.repo_name}"
-  commit_author  = "Terraform"
-  commit_message = "File tracked via Terraform"
-  commit_email   = "terraform@coffeetocode.dev"
+  commit_author  = "Terraformer"
+  commit_message = "File tracked via Terraformer"
+  commit_email   = "terraformer@coffeetocode.dev"
   lifecycle {
     ignore_changes = [
       content,
