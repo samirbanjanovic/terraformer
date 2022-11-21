@@ -26,7 +26,13 @@ resource "github_repository" "standard_repo" {
     command     = <<-EOT
         if ["${var.provision_repo}" -eq "true"]
         then
-            echo "Running provisioner"
+            echo "Create repo from default template"
+
+            echo $GH_TOKEN | gh auth login --with-token
+
+            gh repo create ${var.org_name}/${var.repo_name} --internal --template ${var.template_repo}
+
+
             git config --global user.name="Tarraformer"
             git config --global user.email="terraformer@coffeetocode.dev"
             
